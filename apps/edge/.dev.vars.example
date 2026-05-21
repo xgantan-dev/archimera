@@ -1,0 +1,9 @@
+# Copy to apps/edge/.dev.vars and fill in for local `wrangler dev`.
+# Do NOT commit `.dev.vars` — it is gitignored at the repo root.
+#
+# No worker secrets are required yet. Future read-only Polymarket access uses
+# the public Gamma API (no auth). Anything that signs or moves funds belongs
+# in services/core (the Rust service), never here.
+#
+# Reserved names (uncomment when introduced):
+# CORE_SERVICE_URL=http://127.0.0.1:8787

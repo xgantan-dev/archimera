@@ -1,0 +1,10 @@
+name = "archimera-edge"
+main = "src/worker.ts"
+compatibility_date = "2026-05-21"
+
+# KV namespace binding placeholder — provision in Wave 2 via:
+#   wrangler kv namespace create MARKETS_KV
+# then fill in the returned id below and uncomment.
+# [[kv_namespaces]]
+# binding = "MARKETS_KV"
+# id = "TODO_REPLACE_WITH_REAL_NAMESPACE_ID"
