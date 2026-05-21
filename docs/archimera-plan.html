@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archimera — 4-Day Build Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211d17;
+    --ink-soft:#4a4338;
+    --parch:#f4ecdd;
+    --parch-deep:#ece1cb;
+    --card:#fbf6ec;
+    --line:#d8cab0;
+    --line-soft:#e4d8c0;
+    --gold:#9a6b1f;
+    --gold-bright:#c08a2e;
+    --terra:#a8442a;
+    --teal:#1d6e56;
+    --coral:#993c1d;
+    --grayb:#5f5e5a;
+    --shadow:rgba(40,30,15,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--parch);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(192,138,46,.06), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(168,68,42,.05), transparent 45%);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,serif;
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px}
+
+  /* ---------- masthead ---------- */
+  header.top{
+    padding:74px 0 38px;
+    border-bottom:2px solid var(--ink);
+    position:relative;
+  }
+  .kicker{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:20px;
+  }
+  h1.title{
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:clamp(58px,11vw,128px);
+    line-height:.9;
+    letter-spacing:-.02em;
+    color:var(--ink);
+  }
+  h1.title .gr{font-style:italic;font-weight:400;color:var(--terra)}
+  .sub{
+    margin-top:26px;
+    font-size:21px;
+    max-width:660px;
+    color:var(--ink-soft);
+  }
+  .sub b{font-weight:600;color:var(--ink)}
+  .metarow{
+    display:flex;flex-wrap:wrap;gap:30px;
+    margin-top:32px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.05em;
+  }
+  .metarow div span{display:block;color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;margin-bottom:5px}
+  .metarow div b{font-weight:500;color:var(--ink)}
+
+  .deadline{
+    margin-top:30px;
+    display:inline-flex;align-items:baseline;gap:12px;
+    background:var(--terra);color:#fdf2e3;
+    padding:11px 20px;border-radius:3px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.05em;
+  }
+  .deadline b{font-size:17px;font-weight:700}
+
+  /* ---------- section frame ---------- */
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  .seclabel{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:14px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .seclabel::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(30px,5vw,46px);line-height:1.04;
+    letter-spacing:-.015em;margin-bottom:18px;
+  }
+  p{margin-bottom:16px}
+  p.lede{font-size:20px;color:var(--ink-soft);max-width:720px}
+
+  /* ---------- highlight primitives ---------- */
+  mark{
+    background:linear-gradient(transparent 58%, rgba(192,138,46,.40) 58%);
+    color:inherit;padding:0 1px;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;font-size:.86em;
+    background:var(--parch-deep);padding:1px 6px;border-radius:3px;color:var(--coral)}
+  .keyword{font-weight:600;color:var(--ink)}
+
+  .callout{
+    border-left:3px solid var(--terra);
+    background:var(--card);
+    padding:18px 22px;margin:24px 0;border-radius:0 6px 6px 0;
+    box-shadow:0 2px 14px var(--shadow);
+  }
+  .callout .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--terra);
+    display:block;margin-bottom:7px;font-weight:700;
+  }
+  .callout.gold{border-left-color:var(--gold-bright)}
+  .callout.gold .tag{color:var(--gold)}
+  .callout p:last-child{margin-bottom:0}
+
+  /* ---------- the spine: who am I ---------- */
+  .profile{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;
+    background:var(--card);margin-top:8px;
+  }
+  .profile div{padding:20px 22px;border-right:1px solid var(--line)}
+  .profile div:last-child{border-right:none}
+  .profile span{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .profile b{font-family:'Fraunces',serif;font-size:19px;font-weight:500;line-height:1.25}
+
+  /* ---------- architecture diagram band ---------- */
+  .archband{background:var(--card);border-radius:10px;padding:30px 26px 22px;
+    border:1px solid var(--line);box-shadow:0 4px 24px var(--shadow);margin-top:10px}
+  .archband svg{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:22px;margin-top:18px;padding-top:18px;
+    border-top:1px dashed var(--line);font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--ink-soft)}
+  .legend i{display:inline-block;width:13px;height:13px;border-radius:3px;
+    margin-right:8px;vertical-align:-1px}
+  .lg-teal{background:#dcefe6;border:1px solid var(--teal)}
+  .lg-coral{background:#f8e2d8;border:1px solid var(--coral)}
+  .lg-gray{background:#e6e3da;border:1px solid var(--grayb)}
+
+  /* ---------- day timeline ---------- */
+  .day{
+    display:grid;grid-template-columns:96px 1fr;gap:0;
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    background:var(--card);margin-bottom:22px;box-shadow:0 3px 18px var(--shadow);
+  }
+  .day .num{
+    background:var(--ink);color:var(--parch);
+    padding:24px 0;text-align:center;
+    display:flex;flex-direction:column;justify-content:flex-start;gap:4px;
+  }
+  .day .num span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;color:var(--gold-bright)}
+  .day .num b{font-family:'Fraunces',serif;font-weight:900;font-size:54px;line-height:.85}
+  .day .num em{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:9.5px;
+    letter-spacing:.1em;color:#b8ac95;padding:0 6px;margin-top:6px;line-height:1.35}
+  .day .body{padding:26px 28px}
+  .day h3{font-family:'Fraunces',serif;font-weight:600;font-size:27px;margin-bottom:4px;letter-spacing:-.01em}
+  .day .touches{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;
+    color:var(--gold);margin-bottom:16px}
+  .day .touches b{color:var(--coral);font-weight:500}
+  .day ul{list-style:none;margin:0}
+  .day li{position:relative;padding-left:26px;margin-bottom:11px;font-size:16.5px;line-height:1.55}
+  .day li::before{content:"";position:absolute;left:2px;top:10px;width:7px;height:7px;
+    border-radius:50%;background:var(--gold-bright)}
+  .day li .lead{font-weight:600;color:var(--ink)}
+  .day .goal{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);
+    font-size:15px;color:var(--ink-soft)}
+  .day .goal b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--teal);margin-right:8px}
+
+  /* ---------- triage ---------- */
+  .triage{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .triage .col{border-radius:10px;padding:22px 24px;border:1px solid var(--line)}
+  .triage .protect{background:#e9f4ee;border-color:var(--teal)}
+  .triage .cut{background:#f7e9e3;border-color:var(--coral)}
+  .triage h4{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .triage .protect h4{color:var(--teal)}
+  .triage .cut h4{color:var(--coral)}
+  .triage ol{margin-left:18px;font-size:15.5px;line-height:1.5}
+  .triage li{margin-bottom:8px}
+
+  /* ---------- scoring chips ---------- */
+  .scores{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:14px 18px;flex:1;min-width:150px;box-shadow:0 2px 10px var(--shadow)}
+  .chip b{font-family:'Fraunces',serif;font-size:34px;font-weight:900;display:block;line-height:1}
+  .chip span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+    color:var(--ink-soft);display:block;margin-top:6px}
+  .chip.hot b{color:var(--terra)}
+  .chip.warm b{color:var(--gold)}
+
+  footer{padding:44px 0 70px;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--ink-soft)}
+  footer .gr{font-family:'Fraunces',serif;font-style:italic;font-size:17px;letter-spacing:0;
+    color:var(--terra);display:block;margin-bottom:10px}
+
+  @media(max-width:720px){
+    body{font-size:16.5px}
+    .profile{grid-template-columns:1fr}
+    .profile div{border-right:none;border-bottom:1px solid var(--line)}
+    .triage{grid-template-columns:1fr}
+    .day{grid-template-columns:64px 1fr}
+    .day .num b{font-size:38px}
+    .day .num em{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Agora Agents Hackathon · RFB 02 · Canteen × Circle</div>
+    <h1 class="title">Archi<span class="gr">mera</span></h1>
+    <p class="sub">A prediction-market intelligence agent that finds <b>+EV mispricings</b>, sizes them with fractional Kelly, and settles real positions in <b>USDC on Arc</b> — exposing its full reasoning trace as the product.</p>
+
+    <div class="metarow">
+      <div><span>Settlement</span><b>Arc testnet · USDC</b></div>
+      <div><span>Data</span><b>Polymarket Gamma</b></div>
+      <div><span>Stack</span><b>TS edge · Rust core</b></div>
+      <div><span>Optimizing for</span><b>Maximum learning</b></div>
+    </div>
+
+    <div class="deadline">SUBMIT BY <b>MAY 25</b> · 4 days on the clock</div>
+  </div>
+</header>
+
+<!-- ============ WHY THIS RFB ============ -->
+<section>
+  <div class="wrap">
+    <div class="seclabel">The fit</div>
+    <h2>Why RFB 02, for this builder</h2>
+    <p class="lede">It sits on top of both stated interests and turns a strong ML/software foundation toward genuinely new territory: turning noise into calibrated probability, then betting it correctly.</p>
+
+    <div class="profile">
+      <div><span>Strongest area</span><b>General software — backend, full-stack, ML</b></div>
+      <div><span>New territory</span><b>Markets &amp; on-chain settlement</b></div>
+      <div><span>Goal</span><b>Learn the most, not just place</b></div>
+    </div>
+
+    <div class="callout gold" style="margin-top:26px">
+      <span class="tag">The framing that makes it work</span>
+      <p><mark>Archimera is an <span class="keyword">intelligence product, not a high-frequency bot.</span></mark> The edge for judges is the <em>reasoning</em> — "here's a mispriced market, here's why, here's how much to bet" — not microsecond execution. That plays to ML strengths and sidesteps the parts that would eat four days alive: live custody, real order execution, getting liquidated for real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section>
+  <div class="wrap">
+    <div class="seclabel">The stack</div>
+    <h2>Architecture &amp; language split</h2>
+    <p class="lede">The horizontal bands are <b>trust boundaries that double as language boundaries.</b> Money-and-keys code runs natively in Rust with an auditable dependency tree; the read-only edge runs in TypeScript on Cloudflare where the blast radius is tiny.</p>
+
+    <div class="archband">
+      <svg viewBox="0 0 680 620" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="archtitle archdesc">
+        <title id="archtitle">Archimera architecture and stack</title>
+        <desc id="archdesc">Three tiers: a Cloudflare TypeScript edge layer for read-only market data, a native Rust service handling all money and keys, and external data and settlement systems.</desc>
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <style>
+          .th{font-family:'Fraunces',serif;font-weight:600;font-size:15px;fill:#211d17}
+          .ts{font-family:'JetBrains Mono',monospace;font-size:11.5px;fill:#4a4338}
+          .bl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;font-weight:700}
+          .teal-fill{fill:#dcefe6;stroke:#1d6e56}
+          .teal-box{fill:#eef8f2;stroke:#1d6e56}
+          .coral-fill{fill:#f8e2d8;stroke:#993c1d}
+          .coral-box{fill:#fcefe7;stroke:#993c1d}
+          .gray-box{fill:#ece8df;stroke:#5f5e5a}
+          .arrline{stroke:#4a4338;stroke-width:1.4;fill:none}
+        </style>
+
+        <!-- Edge band -->
+        <text class="bl" x="22" y="26" fill="#1d6e56">CLOUDFLARE EDGE · TYPESCRIPT · NEAR-ZERO DEPS</text>
+        <rect class="teal-fill" x="22" y="38" width="636" height="120" rx="13" stroke-width="0.6" fill-opacity="0.5"/>
+        <g>
+          <rect class="teal-box" x="42" y="62" width="180" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="132" y="92" text-anchor="middle">Pages frontend</text>
+          <text class="ts" x="132" y="113" text-anchor="middle">+EV feed · traces</text>
+        </g>
+        <g>
+          <rect class="teal-box" x="250" y="62" width="180" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="340" y="88" text-anchor="middle">Read Worker</text>
+          <text class="ts" x="340" y="108" text-anchor="middle">fetch · cache · KV</text>
+          <text class="ts" x="340" y="125" text-anchor="middle">Cron market scan</text>
+        </g>
+        <g>
+          <rect class="teal-box" x="458" y="62" width="180" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="548" y="92" text-anchor="middle">No secrets here</text>
+          <text class="ts" x="548" y="113" text-anchor="middle">tiny blast radius</text>
+        </g>
+
+        <line class="arrline" x1="340" y1="158" x2="340" y2="206" marker-end="url(#ar)"/>
+        <text class="ts" x="352" y="186">action request</text>
+
+        <!-- Rust band -->
+        <text class="bl" x="22" y="234" fill="#993c1d">NATIVE RUST SERVICE · TRUSTED DEPS · MONEY + KEYS</text>
+        <rect class="coral-fill" x="22" y="246" width="636" height="158" rx="13" stroke-width="0.6" fill-opacity="0.5"/>
+        <g>
+          <rect class="coral-box" x="42" y="270" width="184" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="134" y="296" text-anchor="middle">Probability brain</text>
+          <text class="ts" x="134" y="316" text-anchor="middle">estimate + trace</text>
+          <text class="ts" x="134" y="333" text-anchor="middle">+EV detection</text>
+        </g>
+        <g>
+          <rect class="coral-box" x="248" y="270" width="184" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="340" y="303" text-anchor="middle">Kelly sizing</text>
+          <text class="ts" x="340" y="323" text-anchor="middle">fractional</text>
+        </g>
+        <g>
+          <rect class="coral-box" x="454" y="270" width="184" height="78" rx="9" stroke-width="0.7"/>
+          <text class="th" x="546" y="296" text-anchor="middle">Wallet engine</text>
+          <text class="ts" x="546" y="316" text-anchor="middle">RSA-OAEP cipher</text>
+          <text class="ts" x="546" y="333" text-anchor="middle">USDC + trace pin</text>
+        </g>
+        <text class="ts" x="340" y="384" text-anchor="middle">axum · reqwest · rsa · sha2 — no WASM, no SDK, no Node</text>
+
+        <line class="arrline" x1="170" y1="404" x2="170" y2="452" marker-end="url(#ar)"/>
+        <text class="ts" x="182" y="432">read prices</text>
+        <line class="arrline" x1="546" y1="404" x2="546" y2="452" marker-end="url(#ar)"/>
+        <text class="ts" x="558" y="432">sign · settle</text>
+
+        <!-- External band -->
+        <text class="bl" x="22" y="480" fill="#5f5e5a">EXTERNAL SYSTEMS</text>
+        <g>
+          <rect class="gray-box" x="42" y="492" width="276" height="80" rx="9" stroke-width="0.7"/>
+          <text class="th" x="180" y="520" text-anchor="middle">Polymarket Gamma API</text>
+          <text class="ts" x="180" y="540" text-anchor="middle">public · no auth</text>
+          <text class="ts" x="180" y="557" text-anchor="middle">prices + resolution</text>
+        </g>
+        <g>
+          <rect class="gray-box" x="362" y="492" width="276" height="80" rx="9" stroke-width="0.7"/>
+          <text class="th" x="500" y="520" text-anchor="middle">Circle + Arc testnet</text>
+          <text class="ts" x="500" y="540" text-anchor="middle">dev-controlled SCA wallet</text>
+          <text class="ts" x="500" y="557" text-anchor="middle">USDC settlement</text>
+        </g>
+      </svg>
+
+      <div class="legend">
+        <span><i class="lg-teal"></i>TypeScript edge — reads only</span>
+        <span><i class="lg-coral"></i>Native Rust — signs &amp; settles</span>
+        <span><i class="lg-gray"></i>External — Polymarket &amp; Circle/Arc</span>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px">
+      <span class="tag">The asymmetry that matters</span>
+      <p>The Worker <span class="keyword">only ever reads</span> from Polymarket. Only the Rust service <span class="keyword">ever signs and settles.</span> <mark>No secret ever crosses up into the TypeScript band</mark> — the entity-secret RSA encryption and every USDC transfer live natively, where the dependency tree is small enough to <span class="mono">cargo audit</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE 4 DAYS ============ -->
+<section>
+  <div class="wrap">
+    <div class="seclabel">The build</div>
+    <h2>Four days, mapped to the diagram</h2>
+    <p class="lede">Each day lights up specific boxes. Build the gray read-path and teal Worker first, then the coral brain, then wire the coral wallet engine to Circle/Arc, then the teal frontend and — equally weighted — real users.</p>
+
+    <div class="day">
+      <div class="num"><span>DAY</span><b>1</b><em>read path</em></div>
+      <div class="body">
+        <h3>Data spine + the estimate</h3>
+        <div class="touches">touches → <b>Polymarket Gamma</b> · <b>Read Worker (KV)</b> · brain stub</div>
+        <ul>
+          <li><span class="lead">Stand up the read Worker.</span> Hit <span class="mono">gamma-api.polymarket.com/markets</span>, pull active markets by 24h volume, normalize price → implied probability. Public, no auth — this part is trivial.</li>
+          <li><span class="lead">Build the intellectual core.</span> A function that produces an <em>independent</em> probability for one market: reads the question + recent context, outputs a probability, a confidence interval, and a written rationale.</li>
+          <li><span class="lead">The rationale IS the product.</span> Get one market fully end-to-end: market in → your-prob + market-prob + edge out. No UI yet.</li>
+        </ul>
+        <div class="goal"><b>End of day</b> One market, one honest probability estimate with a trace. The hard thinking starts here, not the plumbing.</div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="num"><span>DAY</span><b>2</b><em>the brain</em></div>
+      <div class="body">
+        <h3>+EV detection &amp; Kelly sizing</h3>
+        <div class="touches">touches → <b>Probability brain</b> · <b>Kelly sizing</b> (Rust core)</div>
+        <ul>
+          <li><span class="lead">Flag the mispricings.</span> Where <span class="mono">|your_prob − market_prob|</span> clears a threshold, rank by edge.</li>
+          <li><span class="lead">Size with fractional Kelly.</span> Use <mark>quarter-Kelly, never full</mark> — full Kelly is famously too aggressive and a judge who trades will notice raw Kelly instantly.</li>
+          <li><span class="lead">Highest-learning day.</span> Kelly + EV are new conceptual territory — give them real time. Output a ranked list of +EV picks, each with a size and an attached reasoning trace.</li>
+        </ul>
+        <div class="goal"><b>End of day</b> A ranked feed of sized, reasoned picks. This is the agentic-sophistication core — 30% of the score.</div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="num"><span>DAY</span><b>3</b><em>make it act</em></div>
+      <div class="body">
+        <h3>Arc / Circle — make it move money</h3>
+        <div class="touches">touches → <b>Wallet engine</b> · <b>Circle + Arc testnet</b></div>
+        <ul>
+          <li><span class="lead">Encrypt the entity secret.</span> RSA-OAEP, <mark>SHA-256 for both the hash AND MGF1</mark> — the detail generic helpers get wrong. Fresh ciphertext per request; never cache it.</li>
+          <li><span class="lead">Create a dev-controlled wallet on Arc.</span> <span class="mono">POST /v1/w3s/developer/wallets</span> with <span class="mono">accountType: "SCA"</span> — matches Circle's known-good Arc path. Fund from the testnet faucet.</li>
+          <li><span class="lead">Allocate + pin.</span> On an accepted pick, generate fresh ciphertext, move the Kelly-sized USDC, and record the reasoning trace as a settlement record on Arc (cents to pin the full trace).</li>
+        </ul>
+        <div class="goal"><b>End of day</b> The agent doesn't just recommend — it places capital. This is what converts "smart dashboard" into "agent that interfaces with markets."</div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="num"><span>DAY</span><b>4</b><em>ship + users</em></div>
+      <div class="body">
+        <h3>Frontend, traction, demo</h3>
+        <div class="touches">touches → <b>Pages frontend</b> · Cron scan · the submission</div>
+        <ul>
+          <li><span class="lead">Build the feed UI.</span> Each card: market price vs. agent probability, the edge, the Kelly size, an expandable reasoning trace. Wire the Cron Trigger so the feed visibly refreshes itself — that's the "monitors 24/7" story.</li>
+          <li><span class="lead">Get real users — this is 30% of the score.</span> <mark>Equal weight to everything you built.</mark> Post in the Canteen Discord; get 5–10 people to open the link, fund a testnet wallet, look at picks.</li>
+          <li><span class="lead">Record + submit.</span> 3-min Loom (mispriced market → why → position placed in USDC on Arc), live link, public GitHub repo with a README a judge can follow cold.</li>
+        </ul>
+        <div class="goal"><b>End of day</b> Submitted early. You can submit as many times as you like — submit, then keep gathering traction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRIAGE ============ -->
+<section>
+  <div class="wrap">
+    <div class="seclabel">When you fall behind</div>
+    <h2>The triage list</h2>
+    <p class="lede">You will run short on time — everyone does. Decide now what gets cut and what gets defended, so the decision isn't made at hour 60 in a panic.</p>
+
+    <div class="triage">
+      <div class="col protect">
+        <h4>◆ Protect at all costs</h4>
+        <ol>
+          <li>The probability estimate + reasoning trace</li>
+          <li>The fractional-Kelly sizing</li>
+          <li>One clean Arc / USDC settlement action</li>
+        </ol>
+      </div>
+      <div class="col cut">
+        <h4>✕ Cut in this order</h4>
+        <ol>
+          <li>Paymaster (gasless UX — nice-to-have)</li>
+          <li>Cron auto-refresh → manual refresh button</li>
+          <li>Multi-market portfolio construction</li>
+          <li>Any historical backtesting</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px">
+      <span class="tag">An honest reality check</span>
+      <p>Probability quality is where this lives or dies, and being genuinely <em>calibrated</em> in four days is hard — your estimates may not beat the market. <mark>That's okay.</mark> Judges weight agentic decision-making and reasoning legibility heavily: a well-reasoned wrong probability with an honest confidence interval demos better than a black-box right one. <span class="keyword">Lean into showing how it thinks.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCORING ============ -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="seclabel">How they judge</div>
+    <h2>What the score rewards</h2>
+    <p class="lede">Asynchronous judging — no demo day. Judges read the repo like operators and click around the live link. Weight your effort to match.</p>
+
+    <div class="scores">
+      <div class="chip hot"><b>30%</b><span>Agentic sophistication<br>→ Day 2 brain</span></div>
+      <div class="chip hot"><b>30%</b><span>Traction / real users<br>→ Day 4</span></div>
+      <div class="chip warm"><b>20%</b><span>Circle tool usage<br>→ Day 3 wallet</span></div>
+      <div class="chip warm"><b>20%</b><span>Innovation<br>→ the trace as product</span></div>
+    </div>
+
+    <div class="callout gold" style="margin-top:26px">
+      <span class="tag">One caveat to keep in view</span>
+      <p>Arc is <span class="keyword">testnet-only</span> right now. Your USDC is faucet USDC; your positions are testnet positions. That's fine for a testnet hackathon — just <mark>frame the demo honestly</mark> as testnet settlement demonstrating the mechanism. Don't imply mainnet money is moving.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="gr">"All things are an exchange for fire, and fire for all things."</span>
+    ARCHIMERA · AGORA AGENTS HACKATHON · BUILT ON ARC · POWERED BY CIRCLE
+  </div>
+</footer>
+
+</body>
+</html>
