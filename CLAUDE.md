@@ -54,6 +54,15 @@ These are details the plan calls out specifically because generic helpers get th
 - **Kelly sizing**: quarter-Kelly. Full Kelly is too aggressive; a judge who trades will spot raw Kelly immediately.
 - **Demo framing**: Arc is testnet-only right now. Frame the demo as testnet settlement demonstrating the mechanism — don't imply mainnet money is moving.
 
+## How to work in this repo
+
+Fatigue insurance for the 4-day sprint. Bias toward caution over speed. For trivial tasks, use judgment. When caution and the May 25 clock disagree, caution wins on anything in the Rust service (signing, settlement, Kelly sizing); speed wins on the Worker and the frontend.
+
+- **Think before coding.** Re-read `docs/archimera-plan.html` before scaffolding anything new. State assumptions explicitly; if multiple interpretations exist, name them rather than picking silently. If a simpler approach exists, push back. The gotchas block above is the assumption registry — point to it rather than restating.
+- **Simplicity first.** No abstractions, configurability, or error handling for cases that can't happen. Especially in the Rust service: every dep must justify itself against `cargo audit`. If a function grew past what the plan asked for, cut it back. No Node SDK, no WASM bridge — the plan already rejected them.
+- **Surgical changes.** Touch only what the task requires. No drive-by refactors or formatting cleanups in adjacent code — the TS/Rust trust boundary is load-bearing, and so is the existing dependency surface. Remove imports your changes orphaned; leave pre-existing dead code alone unless asked. Every changed line should trace to the user's request.
+- **Goal-driven execution.** Every change traces to a Day-N acceptance from the build order below. Write the success check before the code (e.g., "market_id in → {prob, rationale, edge} out"). Strong criteria let you loop without check-ins; weak criteria ("make it work") create rework.
+
 ## Build order (from the plan)
 
 Day 1: Read Worker + one market end-to-end (market in → probability + rationale + edge out). No UI.
