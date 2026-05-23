@@ -20,7 +20,7 @@ curl -s -X POST http://127.0.0.1:8787/v1/score \
 # → { prior: 0.x, evidence: [...], final_prob: 0.x, rationale: "...", trace_hash: "<sha256>" }
 ```
 
-Per `docs/decisions.md` #8: trace must show **prior**, **evidence**, and **direction of update**. This tests legibility, not accuracy.
+Trace must show **prior**, **evidence**, and **direction of update**. This tests legibility, not accuracy.
 
 ## Notes
 

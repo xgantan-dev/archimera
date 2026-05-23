@@ -4,7 +4,7 @@
 
 **Depends on**: M10.
 
-> `docs/decisions.md` #18: "Pre-recorded settlement video primary; live link bonus. Demo-day networks fail. Loom always works."
+> "Pre-recorded settlement video primary; live link bonus. Demo-day networks fail. Loom always works."
 
 ## The dry-run smoke (do this first, before recording)
 
