@@ -1,7 +1,7 @@
 # Archimera Milestones — MVP by end of 2026-05-24
 
 **Submission**: 2026-05-25. **MVP target**: end of 2026-05-24 (~36h wall-clock from 2026-05-23 morning).
-**Synthesized from** `docs/archimera-plan.html` + `docs/decisions.md` + party-mode panel (John / Winston / Amelia / Murat).
+**Synthesized from** `docs/archimera-plan.html` + party-mode panel (John / Winston / Amelia / Murat).
 
 ## The five-thing demo
 
@@ -41,8 +41,6 @@ M05 (RSA-OAEP) and M07 (Arc transfer) are the **rabbit holes**. Probe M00 unknow
 **Total focused**: 22h. **Slack**: ~14h for the two RH overruns and packaging.
 
 ## Triage if behind (cuts in order)
-
-Inherited from `docs/decisions.md` + tightened by John:
 
 1. M09 HMAC → bearer token if CF Access free-tier blocks
 2. M10 polish → curl-and-screenshot demo

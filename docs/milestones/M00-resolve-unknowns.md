@@ -6,8 +6,6 @@
 
 ## The unknowns
 
-From `docs/decisions.md` §6:
-
 1. **Calldata on `POST /v1/w3s/developer/transactions`** — does it accept an arbitrary `data` field so the USDC transfer and the trace-hash pin happen in one tx, or do we need a second zero-value tx? If two, budget two settlement calls per showpiece and adjust Kelly accounting.
 2. **Arc testnet RPC URL + USDC contract address** — not in the plan. Get both from Circle's Arc docs or a block explorer.
 3. **CF Access service tokens on free Cloudflare tier** — if Zero Trust seat is paid-only, the Worker→Rust auth collapses to HMAC-only over a Tunnel ingress restricted by Tunnel ID.

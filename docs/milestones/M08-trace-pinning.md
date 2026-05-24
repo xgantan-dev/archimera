@@ -1,6 +1,6 @@
 # M08 — SHA-256 trace pinning on Arc (1.5h)
 
-**Goal**: Hash the canonical trace JSON, pin the hash on Arc, return both `tx_hash` (settlement) and `trace_uri` (off-chain storage) + `trace_hash`. Satisfies integrity bar (a)–(e) from `docs/decisions.md` §3.
+**Goal**: Hash the canonical trace JSON, pin the hash on Arc, return both `tx_hash` (settlement) and `trace_uri` (off-chain storage) + `trace_hash`. Satisfies integrity bar (a)–(e).
 
 **Depends on**: M07, M03 (canonical trace).
 
@@ -32,5 +32,5 @@ curl -s "$trace_uri" | sha256sum
 
 - **Encoding drift is the failure mode.** UTF-8 with NO BOM, no trailing newline, sorted JSON keys. Use the same `Trace::canonical_json()` function from M03 — never re-serialize.
 - Storage backend: pick ONE — KV or R2. Don't build a two-backend abstraction.
-- Integrity bar (f) — byte-equal verification of the retrieved trace against the pinned hash — is **deliberately dropped** (`docs/decisions.md` §3). Document this in the README as a conscious 4-day scope cut, not an oversight.
+- Integrity bar (f) — byte-equal verification of the retrieved trace against the pinned hash — is **deliberately dropped**. Document this in the README as a conscious 4-day scope cut, not an oversight.
 - If you fall behind: pin manually with a one-off script for the demo trace, ship M11 without programmatic pinning. The triage list permits this.

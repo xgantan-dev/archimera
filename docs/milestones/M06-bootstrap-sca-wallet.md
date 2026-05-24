@@ -4,7 +4,7 @@
 
 **Depends on**: M05.
 
-> `docs/decisions.md` #10–#11: Wallet type = SCA, `accountType: "SCA"`. Exactly one wallet for the demo.
+> Wallet type = SCA, `accountType: "SCA"`. Exactly one wallet for the demo.
 
 ## Files
 
